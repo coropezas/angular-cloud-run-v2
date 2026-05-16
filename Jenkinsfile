@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'google/cloud-sdk::stable' }
+        docker { image 'google/cloud-sdk:stable' }
     }
     environment {
         // Variables migradas de tu env de GitHub Actions
