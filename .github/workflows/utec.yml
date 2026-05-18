@@ -113,10 +113,11 @@ jobs:
 
   # 3. JOB AUTOMÁTICO EN CASO DE RECHAZO O FALLO (ROLLBACK)
 # 3. JOB AUTOMÁTICO EN CASO DE RECHAZO O FALLO (ROLLBACK)
+# 3. JOB AUTOMÁTICO EN CASO DE RECHAZO O FALLO (ROLLBACK)
   rollback_canary:
     needs: [build_and_canary, promote_or_rollback]
-    # CORRECCIÓN AQUÍ: Usamos 'failure' y 'cancelled' que son los estados oficiales de GitHub Actions
     if: always() && needs.build_and_canary.outputs.is_first_deploy == 'false' && (needs.promote_or_rollback.result == 'failure' || needs.promote_or_rollback.result == 'cancelled')
+    environment: dev # <--- ¡ESTA ES LA LÍNEA MÁGICA QUE FALTABA!
     runs-on: ubuntu-latest
     steps:
       - name: Google Auth
